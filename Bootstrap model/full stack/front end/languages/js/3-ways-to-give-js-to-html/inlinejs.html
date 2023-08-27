@@ -19,7 +19,7 @@
     <h1>Inline Script</h1>
     <p>defination: You can include your JavaScript code directly within the HTML file using the 'script' tag. Place the code between the opening 'script' and closing 'script' tags within the 'head' or 'body' section of your HTML.</p>
     
-    <div class="comtainer">
+    <div class="container">
         <div class="row">
             <div class="col">
                 <center>                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Syntex of Inline Script </button>
@@ -32,13 +32,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <h4>Syntex: 
-                                    <br>
-                                    &lt;script&gt; <br>
-                                    // JavaScript Code 
-                                    <br>
-                                    &lt;/script&gt;
-                                </h4>
+                                <pre>
+Syntex: 
+&lt;script&gt;
+    // JavaScript Code 
+&lt;/script&gt;                                    
+                                </pre>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -58,25 +57,25 @@
 
     <div class="code-container">
         <pre>
-            &lt;!DOCTYPE html&gt;
-            &lt;html&gt;
-                &lt;head&gt;
-                    &lt;title&gt;Inline Script Example&lt;/title&gt;
-                &lt;/head&gt;
-                &lt;body&gt;
-                    &lt;h1 id="message"&gt;Hello, World!&lt;/h1&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Inline Script Example&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1 id="message"&gt;Hello, World!&lt;/h1&gt;
     
-                    &lt;button onclick="changeMessage()"&gt;Change Message&lt;/button&gt;
+        &lt;button onclick="changeMessage()"&gt;Change Message&lt;/button&gt;
     
-                    &lt;script&gt;
-                        // Inline JavaScript code
-                        function changeMessage() {
-                            var messageElement = document.getElementById("message");
-                            messageElement.innerHTML = "Hello from Inline Script!";
-                        }
-                    &lt;/script&gt;
-                &lt;/body&gt;
-            &lt;/html&gt;
+        &lt;script&gt;
+            // Inline JavaScript code
+            function changeMessage() {
+                var messageElement = document.getElementById("message");
+                messageElement.innerHTML = "Hello from Inline Script!";
+            }
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
         </pre>
     </div>
 </body>

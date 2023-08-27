@@ -1,0 +1,9 @@
+<script>
+
+    let apiData= fetch('https://pokeapi.co/api/v2/pokemon/')
+    apiData= apiData.then((data)=>{return data.json()})
+              apiData.then((d)=>{console.log(d)})
+    console.log(apiData)
+ 
+  
+ </script>

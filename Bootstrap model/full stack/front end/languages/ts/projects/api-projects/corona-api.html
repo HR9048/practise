@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corona Api</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <button onclick="apicaller()">click me</button>
+    <script>
+        async function apicaller() {
+            let div = document.getElementById('root')
+            let apiData = await fetch('https://data.covid19india.org/data.json')
+            apiData = await apiData.json()
+
+            let table = document.createElement('table');
+            let thead = document.createElement('thead');
+            let tbody = document.createElement('tbody');
+
+            // Create table header
+            let headerRow = document.createElement('tr');
+            let headers = ["Date", "Daily Confirmed", "Daily Deceased", "Daily Recovered", "Total Confirmed", "Total Deceased", "Total Recovered", "Date YMD"];
+            headers.forEach(headerText => {
+                let th = document.createElement('th');
+                th.textContent = headerText;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Populate table body
+            apiData.cases_time_series.forEach(item => {
+                let row = document.createElement('tr');
+                let rowData = [
+                    item.date,
+                    item.dailyconfirmed,
+                    item.dailydeceased,
+                    item.dailyrecovered,
+                    item.totalconfirmed,
+                    item.totaldeceased,
+                    item.totalrecovered,
+                    item.dateymd
+                ];
+                rowData.forEach(cellData => {
+                    let cell = document.createElement('td');
+                    cell.textContent = cellData;
+                    row.appendChild(cell);
+                });
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            div.appendChild(table);
+        }
+    </script>
+</body>
+
+</html>
