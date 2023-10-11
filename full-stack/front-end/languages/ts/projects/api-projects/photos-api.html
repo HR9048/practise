@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <style>
+        /* Add CSS styles for formatting */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .album-selector {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .album-button {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            background-color: #0366d6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .album-button.active {
+            background-color: #063a80;
+        }
+
+        .album-section {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .album-section.active {
+            display: block;
+        }
+
+        .album-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .photo-card {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .photo-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination-button {
+            padding: 5px 10px;
+            background-color: #0366d6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Photo Gallery</h1>
+        <div class="pagination" id="pagination">
+            <button id="prevPage" class="pagination-button" disabled>Previous</button>
+            <button id="nextPage" class="pagination-button">Next</button>
+        </div>
+        <div class="album-selector" id="albumSelector"></div>
+        <div id="photoGallery">
+            <!-- Album sections will be dynamically created here -->
+        </div>
+    </div>
+
+    <script>
+        const albumSelector = document.getElementById('albumSelector');
+        const photoGallery = document.getElementById('photoGallery');
+        const prevPageButton = document.getElementById('prevPage');
+        const nextPageButton = document.getElementById('nextPage');
+        const perPage = 10;
+        let currentPage = 0;
+        let currentAlbum = null;
+        let albumsData = null;
+
+        // Fetch data from the API
+        fetch('https://jsonplaceholder.typicode.com/photos')
+            .then(response => response.json())
+            .then(data => {
+                albumsData = data.reduce((acc, photo) => {
+                    if (!acc[photo.albumId]) {
+                        acc[photo.albumId] = [];
+                    }
+                    acc[photo.albumId].push(photo);
+                    return acc;
+                }, {});
+
+                // Create album buttons
+                const albumIds = Object.keys(albumsData);
+                const totalPages = Math.ceil(albumIds.length / perPage);
+
+                function renderAlbumButtons() {
+                    albumSelector.innerHTML = '';
+                    const start = currentPage * perPage;
+                    const end = Math.min((currentPage + 1) * perPage, albumIds.length);
+                    for (let i = start; i < end; i++) {
+                        const albumId = albumIds[i];
+                        const albumButton = document.createElement('button');
+                        albumButton.className = 'album-button';
+                        albumButton.textContent = `Album ${albumId}`;
+                        albumButton.setAttribute('data-album', albumId);
+                        albumSelector.appendChild(albumButton);
+                    }
+                }
+
+                function renderAlbum(albumId) {
+                    currentAlbum = albumId;
+                    photoGallery.innerHTML = '';
+                    albumsData[albumId].forEach(photo => {
+                        const photoCard = document.createElement('div');
+                        photoCard.className = 'photo-card';
+
+                        const photoTitle = document.createElement('div');
+                        photoTitle.className = 'photo-title';
+                        photoTitle.textContent = photo.title;
+
+                        const photoImage = document.createElement('img');
+                        photoImage.className = 'photo-image';
+                        photoImage.src = photo.url;
+                        photoImage.alt = photo.title;
+
+                        photoCard.appendChild(photoTitle);
+                        photoCard.appendChild(photoImage);
+
+                        photoGallery.appendChild(photoCard);
+                    });
+                }
+
+                function updatePaginationButtons() {
+                    prevPageButton.disabled = currentPage === 0;
+                    nextPageButton.disabled = currentPage === totalPages - 1;
+                }
+
+                function handleAlbumButtonClick(event) {
+                    const albumId = event.target.getAttribute('data-album');
+                    renderAlbum(albumId);
+                    renderAlbumButtons();
+                    updatePaginationButtons();
+                }
+
+                // Add click event listeners to album buttons
+                renderAlbumButtons();
+                albumSelector.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('album-button')) {
+                        handleAlbumButtonClick(event);
+                    }
+                });
+
+                prevPageButton.addEventListener('click', () => {
+                    if (currentPage > 0) {
+                        currentPage--;
+                        renderAlbumButtons();
+                        updatePaginationButtons();
+                    }
+                });
+
+                nextPageButton.addEventListener('click', () => {
+                    if (currentPage < totalPages - 1) {
+                        currentPage++;
+                        renderAlbumButtons();
+                        updatePaginationButtons();
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
