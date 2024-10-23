@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1><center><u>Instance Variable</u></center></h1>
+<p>Any variable with self is called instance variable</p>
+</head>
+<body>
+    <h2>Example</h2>
+    <pre style="font-size: 17px;">
+        class Pen:
+        def __init__(self,ink_color,price):
+            self.ink_color=ink_color
+            self.price=price
+        def display(self):
+            print('ink color is ',self.ink_color)
+            print('pen price is',self.price)
+    brand1=Pen('Blue',30)
+    brand1.display()
+    brand2=Pen('Black',50)
+    brand2.display()
+
+                                   OUPUT
+                                   ------
+                                   ink color is  Blue
+                                   pen price is 30
+                                   ink color is  Black
+                                   pen price is 50
+    </pre>
+    <h1><center><u>Instance Method</u></center></h1>
+    <p>Instance method work on the instance variable</p>
+    <h2>Example</h2>
+    <pre style="font-size: 17px;">
+        class Employee:
+        def __init__(self, name, id, sal):
+            self.name=name
+            self.id=id
+            self.sal=sal
+        
+        def display(self):
+            print("Name is :",self.name)
+            print("Id is :",self.id)
+            print("Salary is :",self.sal)
+    e=Employee("Theju",17,30000)
+    e.display()
+
+                                OUTPUT
+                                -------
+                                Name is : Theju
+                                Id is : 17     
+                                Salary is : 30000
+
+    </pre>
+
+</body>
+</html>

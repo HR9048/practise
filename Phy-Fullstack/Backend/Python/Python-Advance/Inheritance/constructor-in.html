@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1><center><u>Constructor Inheritance</u></center></h1>
+</head>
+<body>
+    <p>In object oriented programming , constructor inheritance refere to the concept of a
+         (or derived class)inheriting the constructor of its super class(or base clas)</p>
+         <h3>Example</h3>
+         <pre style="font-size: 17px;">
+        class Father:
+            def __init__(self):
+                print('father constructor called')
+                self.vehicle='Bike'
+                print(self.vehicle)
+        class son(Father):
+            pass
+        s=son()
+
+                                                    Output
+                                                    -------
+                                                    father constructor called
+                                                     Bike
+        
+         </pre>
+
+</body>
+</html>

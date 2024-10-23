@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1><center><u>Inheritance</u></center></h1>
+<p></p>Acquiring the properties from the parent class(existing class) to child class(new class)
+</head>
+<body>
+    <h3>Example 1</h3>
+    <pre style="font-size: 17px;">
+    class a:
+        house_name = 'b'
+    
+        def tmane(self):
+            print(self.house_name)
+    
+    class c:
+        house_name1 = 'd'
+    
+        def amane(self):
+            print(self.house_name1)
+    
+    r1 = a()
+    print(r1.house_name)
+    r1.tmane()
+    
+    s1 = c()
+    print(s1.house_name1)
+    s1.amane()
+                                                    Output
+                                                    ------
+                                                    a
+                                                    a
+                                                    d
+                                                    d       
+                                                    
+<h3>Example 2</h3>
+class Employee:
+    bonus=2000
+    def display(self):
+        print("this emlpoyee class method")
+
+class Manager(Employee):
+    bonus=5000
+    def show(self):
+        print("this manager class method")
+
+m=Manager()
+print(m.bonus)
+
+                                                    Output
+                                                    ------
+                                                    5000
+    </pre>
+    <h2><a href="./constructor-in.html">Constructor Inheritance</a></h2>
+    <h2><a href="">Types of Inheritance</a></h2>
+    <ol>
+        <h3>
+        <li><a href="./types of inheritance/singleinh.html">Single Inheritance</a></li><br>
+        <li><a href="./types of inheritance/multilevelin.html">Multi level Inheritance </a></li><br>
+        <li><a href="./types of inheritance/hierarhicalinheritance.html">Hierarchical Inheritance</a></li><br>
+        <li><a href="./types of inheritance/multipleinh.html">Multiple Inheritance </a></li><br>
+        <li><a href="./types of inheritance/hybridin.html">Hybrid Inheritance</a></li><br>
+        <li><a href="./types of inheritance/cyclicinh.html">Cyclic Inheritance</a></li>
+
+        </h3>
+    </ol>
+    </body>
+</html>
